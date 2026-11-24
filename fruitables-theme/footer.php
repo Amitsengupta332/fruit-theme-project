@@ -16,7 +16,7 @@ $footer_socials     = array(
     'linkedin' => array( 'fab fa-linkedin-in', __( 'LinkedIn', 'fruitables' ) ),
 );
 ?>
-<?php if ( is_front_page() ) { require get_theme_file_path( 'template-parts/home/footer.php' ); } else { ?>
+<?php if ( is_front_page() ) { require get_theme_file_path( 'template-parts/home/footer.php' ); } elseif ( fruitables_is_contact_page() ) { require get_theme_file_path( 'template-parts/contact/footer.php' ); } else { ?>
 <!-- Footer Start -->
 <footer class="container-fluid bg-dark text-white-50 footer pt-5 mt-5">
     <div class="container py-5">

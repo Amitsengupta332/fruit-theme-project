@@ -34,3 +34,5 @@ require_once get_theme_file_path( 'inc/testimonials-cpt.php' );
 require_once get_theme_file_path( 'inc/footer-customizer.php' );
 
 require_once get_theme_file_path( 'inc/home-redesign.php' );
+
+require_once get_theme_file_path( 'inc/contact-customizer.php' );

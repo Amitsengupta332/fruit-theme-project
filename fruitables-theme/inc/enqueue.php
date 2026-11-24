@@ -22,9 +22,9 @@ function fruitables_enqueue_assets() {
     $dependencies = array( 'jquery', 'fruitables-bootstrap', 'fruitables-easing', 'fruitables-waypoints', 'fruitables-lightbox', 'fruitables-owl' );
     wp_enqueue_script( 'fruitables-main', get_theme_file_uri( 'js/main.js' ), $dependencies, (string) filemtime( get_theme_file_path( 'js/main.js' ) ), true );
 
-    if ( is_front_page() ) {
+    if ( is_front_page() || fruitables_is_contact_page() ) {
         wp_enqueue_style( 'fruitables-home-font', 'https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap', array(), null );
-        if ( class_exists( 'WooCommerce' ) ) {
+        if ( is_front_page() && class_exists( 'WooCommerce' ) ) {
             wp_enqueue_script( 'wc-add-to-cart' );
         }
     }

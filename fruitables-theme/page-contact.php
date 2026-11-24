@@ -5,101 +5,76 @@
  */
 defined( 'ABSPATH' ) || exit;
 get_header();
-
 $contact_title   = get_the_title( get_queried_object_id() );
 $contact_address = trim( fruitables_shared_contact( 'address' ) );
 $contact_url     = esc_url( fruitables_shared_contact( 'address_url' ) );
 $contact_email   = sanitize_email( fruitables_shared_contact( 'email' ) );
 $contact_phone   = trim( fruitables_shared_contact( 'phone' ) );
 $contact_tel     = preg_replace( '/[^0-9+]/', '', $contact_phone );
-$has_details     = $contact_address || $contact_email || $contact_phone;
+$contact_hours   = trim( fruitables_contact_mod( 'hours' ) );
 $map_url         = $contact_address ? add_query_arg( array( 'q' => rawurlencode( $contact_address ), 'output' => 'embed' ), 'https://maps.google.com/maps' ) : '';
+$directions_url  = $contact_url ?: ( $contact_address ? 'https://www.google.com/maps/search/?api=1&query=' . rawurlencode( $contact_address ) : '' );
+$hero_image      = fruitables_contact_image( 'hero', 'img/home/hero-fresh-basket.avif' );
+$cta_image       = fruitables_contact_image( 'cta', 'img/home/organic-delivery-banner.avif' );
+$details = array(
+    array( 'fas fa-phone-alt', __( 'Call Us', 'fruitables' ), $contact_phone, $contact_tel ? 'tel:' . $contact_tel : '' ),
+    array( 'far fa-envelope', __( 'Email Us', 'fruitables' ), $contact_email, $contact_email ? 'mailto:' . $contact_email : '' ),
+    array( 'fas fa-map-marker-alt', __( 'Our Location', 'fruitables' ), $contact_address, $directions_url ),
+    array( 'far fa-clock', __( 'Working Hours', 'fruitables' ), $contact_hours, '' ),
+);
+$details = array_filter( $details, static function ( $item ) { return '' !== $item[2]; } );
 ?>
-<main id="primary">
-    <!-- Single Page Header start -->
-    <div class="container-fluid page-header py-5">
-        <h1 class="text-center text-white display-6"><?php echo esc_html( $contact_title ); ?></h1>
-        <nav aria-label="<?php esc_attr_e( 'Breadcrumb', 'fruitables' ); ?>">
-            <ol class="breadcrumb justify-content-center mb-0">
-                <li class="breadcrumb-item"><a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php esc_html_e( 'Home', 'fruitables' ); ?></a></li>
-                <li class="breadcrumb-item active text-white" aria-current="page"><?php echo esc_html( $contact_title ); ?></li>
-            </ol>
-        </nav>
-    </div>
-    <!-- Single Page Header End -->
-
-    <!-- Contact Start -->
-    <div class="container-fluid contact py-5">
-        <div class="container py-5">
-            <div class="p-5 bg-light rounded">
-                <div class="row g-4">
-                    <div class="col-12">
-                        <div class="text-center mx-auto" style="max-width: 700px;">
-                            <h2 class="h1 text-primary"><?php esc_html_e( 'Get in touch', 'fruitables' ); ?></h2>
-                            <?php while ( have_posts() ) : the_post(); ?>
-                                <?php if ( '' !== trim( get_the_content() ) ) : ?>
-                                    <div class="mb-4"><?php the_content(); ?></div>
-                                <?php else : ?>
-                                    <p class="mb-4"><?php esc_html_e( 'Have a question about our products or your order? We would love to hear from you.', 'fruitables' ); ?></p>
-                                <?php endif; ?>
-                            <?php endwhile; ?>
-                        </div>
-                    </div>
-                    <?php if ( $map_url ) : ?>
-                        <div class="col-lg-12">
-                            <div class="h-100 rounded">
-                                <iframe class="rounded w-100" style="height: 400px;" src="<?php echo esc_url( $map_url ); ?>" title="<?php esc_attr_e( 'Business location map', 'fruitables' ); ?>" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                            </div>
-                        </div>
-                    <?php endif; ?>
-                    <div class="<?php echo $has_details ? 'col-lg-7' : 'col-12'; ?>">
-                        <!-- Layout preview only. Replace with the configured contact form in the next step. -->
-                        <p class="mb-3"><?php esc_html_e( 'Online message sending is not available yet.', 'fruitables' ); ?></p>
-                        <fieldset disabled>
-                            <label class="visually-hidden" for="fruitables-contact-name"><?php esc_html_e( 'Your Name', 'fruitables' ); ?></label>
-                            <input id="fruitables-contact-name" type="text" class="w-100 form-control border-0 py-3 mb-4" placeholder="<?php esc_attr_e( 'Your Name', 'fruitables' ); ?>">
-                            <label class="visually-hidden" for="fruitables-contact-email"><?php esc_html_e( 'Enter Your Email', 'fruitables' ); ?></label>
-                            <input id="fruitables-contact-email" type="email" class="w-100 form-control border-0 py-3 mb-4" placeholder="<?php esc_attr_e( 'Enter Your Email', 'fruitables' ); ?>">
-                            <label class="visually-hidden" for="fruitables-contact-message"><?php esc_html_e( 'Your Message', 'fruitables' ); ?></label>
-                            <textarea id="fruitables-contact-message" class="w-100 form-control border-0 mb-4" rows="5" cols="10" placeholder="<?php esc_attr_e( 'Your Message', 'fruitables' ); ?>"></textarea>
-                            <button class="w-100 btn form-control border-secondary py-3 bg-white text-primary" type="button" disabled><?php esc_html_e( 'Submit', 'fruitables' ); ?></button>
-                        </fieldset>
-                    </div>
-                    <?php if ( $has_details ) : ?>
-                        <div class="col-lg-5">
-                            <?php if ( $contact_address ) : ?>
-                                <div class="d-flex p-4 rounded mb-4 bg-white">
-                                    <i class="fas fa-map-marker-alt fa-2x text-primary me-4" aria-hidden="true"></i>
-                                    <div>
-                                        <h4><?php esc_html_e( 'Address', 'fruitables' ); ?></h4>
-                                        <p class="mb-2"><?php if ( $contact_url ) : ?><a href="<?php echo esc_url( $contact_url ); ?>"><?php echo esc_html( $contact_address ); ?></a><?php else : ?><?php echo esc_html( $contact_address ); ?><?php endif; ?></p>
-                                    </div>
-                                </div>
-                            <?php endif; ?>
-                            <?php if ( $contact_email ) : ?>
-                                <div class="d-flex p-4 rounded mb-4 bg-white">
-                                    <i class="fas fa-envelope fa-2x text-primary me-4" aria-hidden="true"></i>
-                                    <div>
-                                        <h4><?php esc_html_e( 'Mail Us', 'fruitables' ); ?></h4>
-                                        <p class="mb-2"><a href="<?php echo esc_url( 'mailto:' . $contact_email ); ?>"><?php echo esc_html( $contact_email ); ?></a></p>
-                                    </div>
-                                </div>
-                            <?php endif; ?>
-                            <?php if ( $contact_phone ) : ?>
-                                <div class="d-flex p-4 rounded bg-white">
-                                    <i class="fa fa-phone-alt fa-2x text-primary me-4" aria-hidden="true"></i>
-                                    <div>
-                                        <h4><?php esc_html_e( 'Telephone', 'fruitables' ); ?></h4>
-                                        <p class="mb-2"><?php if ( $contact_tel ) : ?><a href="<?php echo esc_url( 'tel:' . $contact_tel ); ?>"><?php echo esc_html( $contact_phone ); ?></a><?php else : ?><?php echo esc_html( $contact_phone ); ?><?php endif; ?></p>
-                                    </div>
-                                </div>
-                            <?php endif; ?>
-                        </div>
-                    <?php endif; ?>
-                </div>
+<main id="primary" class="ft-contact">
+    <section class="fc-hero" aria-labelledby="fc-title">
+        <div class="fc-hero-art"><img src="<?php echo esc_url( $hero_image ); ?>" alt="" width="1200" height="500" fetchpriority="high" decoding="async"></div>
+        <div class="fc-wrap fc-hero-inner">
+            <div class="fc-hero-copy">
+                <p class="fc-eyebrow"><i class="fas fa-leaf" aria-hidden="true"></i> <?php echo esc_html( fruitables_contact_mod( 'eyebrow' ) ); ?></p>
+                <h1 id="fc-title"><?php echo esc_html( $contact_title ); ?></h1>
+                <p class="fc-hero-intro"><?php echo esc_html( fruitables_contact_mod( 'intro' ) ); ?></p>
+                <nav class="fc-breadcrumb" aria-label="<?php esc_attr_e( 'Breadcrumb', 'fruitables' ); ?>"><a href="<?php echo esc_url( home_url( '/' ) ); ?>"><i class="bi bi-house-door" aria-hidden="true"></i> <?php esc_html_e( 'Home', 'fruitables' ); ?></a><i class="bi bi-chevron-right" aria-hidden="true"></i><span aria-current="page"><?php echo esc_html( $contact_title ); ?></span></nav>
             </div>
         </div>
+    </section>
+    <div class="fc-wrap fc-content">
+        <?php if ( $details ) : ?>
+        <section class="fc-details" aria-label="<?php esc_attr_e( 'Contact information', 'fruitables' ); ?>">
+            <?php foreach ( $details as $item ) : ?>
+                <div class="fc-detail"><span class="fc-detail-icon"><i class="<?php echo esc_attr( $item[0] ); ?>" aria-hidden="true"></i></span><div><h2><?php echo esc_html( $item[1] ); ?></h2><p><?php if ( $item[3] ) : ?><a href="<?php echo esc_url( $item[3] ); ?>"><?php echo esc_html( $item[2] ); ?></a><?php else : echo esc_html( $item[2] ); endif; ?></p></div></div>
+            <?php endforeach; ?>
+        </section>
+        <?php endif; ?>
+        <?php while ( have_posts() ) : the_post(); if ( '' !== trim( get_the_content() ) ) : ?><div class="fc-page-content"><?php the_content(); ?></div><?php endif; endwhile; ?>
+        <div class="fc-contact-grid">
+            <section class="fc-panel fc-form-panel" id="fc-message" aria-labelledby="fc-form-title">
+                <h2 id="fc-form-title"><i class="fas fa-leaf" aria-hidden="true"></i><?php echo esc_html( fruitables_contact_mod( 'form_title' ) ); ?></h2>
+                <p class="fc-panel-description"><?php echo esc_html( fruitables_contact_mod( 'form_description' ) ); ?></p>
+                <?php $form_html = fruitables_contact_form_html(); if ( '' !== trim( $form_html ) ) : ?>
+                    <div class="fc-provider-form"><?php echo $form_html; // Trusted plugin-rendered form. ?></div>
+                <?php else : ?>
+                    <fieldset class="fc-form-preview" disabled aria-describedby="fc-form-note">
+                        <div class="fc-field-row">
+                            <div class="fc-field"><i class="bi bi-person" aria-hidden="true"></i><label class="visually-hidden" for="fc-name"><?php esc_html_e( 'Your Name (required)', 'fruitables' ); ?></label><input id="fc-name" type="text" placeholder="<?php esc_attr_e( 'Your Name *', 'fruitables' ); ?>" autocomplete="name" required></div>
+                            <div class="fc-field"><i class="bi bi-envelope" aria-hidden="true"></i><label class="visually-hidden" for="fc-email"><?php esc_html_e( 'Your Email (required)', 'fruitables' ); ?></label><input id="fc-email" type="email" placeholder="<?php esc_attr_e( 'Your Email *', 'fruitables' ); ?>" autocomplete="email" required></div>
+                        </div>
+                        <div class="fc-field"><i class="bi bi-telephone" aria-hidden="true"></i><label class="visually-hidden" for="fc-phone"><?php esc_html_e( 'Your Phone (optional)', 'fruitables' ); ?></label><input id="fc-phone" type="tel" placeholder="<?php esc_attr_e( 'Your Phone (Optional)', 'fruitables' ); ?>" autocomplete="tel"></div>
+                        <div class="fc-field fc-message-field"><i class="bi bi-chat-left-text" aria-hidden="true"></i><label class="visually-hidden" for="fc-text"><?php esc_html_e( 'Your Message (required)', 'fruitables' ); ?></label><textarea id="fc-text" rows="4" placeholder="<?php esc_attr_e( 'Your Message *', 'fruitables' ); ?>" required></textarea></div>
+                        <button class="fc-button" type="button" disabled><i class="fas fa-paper-plane" aria-hidden="true"></i><?php esc_html_e( 'Send Message', 'fruitables' ); ?></button>
+                    </fieldset>
+                    <p id="fc-form-note" class="fc-form-note"><?php esc_html_e( 'Online message sending is not available yet.', 'fruitables' ); ?><?php if ( $contact_email ) : ?> <a href="<?php echo esc_url( 'mailto:' . $contact_email ); ?>"><?php esc_html_e( 'Email us instead.', 'fruitables' ); ?></a><?php endif; ?></p>
+                <?php endif; ?>
+            </section>
+            <section class="fc-panel fc-map-panel" aria-labelledby="fc-map-title">
+                <h2 id="fc-map-title"><i class="fas fa-map-marker-alt" aria-hidden="true"></i><?php echo esc_html( fruitables_contact_mod( 'map_title' ) ); ?></h2>
+                <?php if ( $map_url ) : ?><iframe src="<?php echo esc_url( $map_url ); ?>" title="<?php esc_attr_e( 'Business location map', 'fruitables' ); ?>" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe><a class="fc-map-link" href="<?php echo esc_url( $directions_url ); ?>"><?php esc_html_e( 'Open map / Get directions', 'fruitables' ); ?> <i class="bi bi-arrow-up-right" aria-hidden="true"></i></a>
+                <?php else : ?><div class="fc-map-empty"><i class="bi bi-geo-alt" aria-hidden="true"></i><p><?php esc_html_e( 'Business location has not been configured yet.', 'fruitables' ); ?></p></div><?php endif; ?>
+            </section>
+        </div>
+        <section class="fc-cta" aria-labelledby="fc-cta-title">
+            <div class="fc-cta-art"><img src="<?php echo esc_url( $cta_image ); ?>" alt="" width="640" height="320" loading="lazy" decoding="async"></div>
+            <div class="fc-cta-copy"><h2 id="fc-cta-title"><?php echo esc_html( fruitables_contact_mod( 'cta_title' ) ); ?></h2><p><?php echo esc_html( fruitables_contact_mod( 'cta_description' ) ); ?></p></div>
+            <a class="fc-button" href="<?php echo esc_url( fruitables_contact_mod( 'cta_url' ) ?: '#fc-message' ); ?>"><?php echo esc_html( fruitables_contact_mod( 'cta_label' ) ); ?><i class="bi bi-arrow-right" aria-hidden="true"></i></a>
+        </section>
     </div>
-    <!-- Contact End -->
 </main>
 <?php get_footer(); ?>

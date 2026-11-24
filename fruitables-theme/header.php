@@ -8,7 +8,7 @@
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
 
-<?php if ( ! is_front_page() ) : ?>
+<?php if ( ! is_front_page() && ! fruitables_is_contact_page() ) : ?>
 <!-- Spinner Start -->
 <div id="spinner" class="show w-100 vh-100 bg-white position-fixed translate-middle top-50 start-50 d-flex align-items-center justify-content-center">
     <div class="spinner-grow text-primary" role="status"></div>
@@ -40,7 +40,7 @@ if ( is_string( $action_query ) ) {
 ?>
 <?php if ( is_front_page() ) { require get_theme_file_path( 'template-parts/home/header.php' ); return; } ?>
 <!-- Navbar start -->
-<div class="container-fluid fixed-top">
+<div class="container-fluid <?php echo fruitables_is_contact_page() ? 'ft-contact-header' : 'fixed-top'; ?>">
     <?php if ( $topbar_visible ) : ?>
         <div class="container topbar bg-primary d-none d-lg-block">
             <div class="d-flex justify-content-between">
@@ -81,7 +81,11 @@ if ( is_string( $action_query ) ) {
             <?php if ( has_custom_logo() ) : ?>
                 <?php the_custom_logo(); ?>
             <?php else : ?>
+                <?php if ( fruitables_is_contact_page() ) : ?>
+                <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="navbar-brand ft-contact-brand"><i class="fas fa-leaf" aria-hidden="true"></i><span><?php echo esc_html( get_bloginfo( 'name' ) ?: 'Fruitables' ); ?></span></a>
+                <?php else : ?>
                 <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="navbar-brand"><h1 class="text-primary display-6"><?php echo esc_html( get_bloginfo( 'name' ) ?: 'Fruitables' ); ?></h1></a>
+                <?php endif; ?>
             <?php endif; ?>
             <button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="<?php esc_attr_e( 'Toggle navigation', 'fruitables' ); ?>">
                 <span class="fa fa-bars text-primary" aria-hidden="true"></span>
