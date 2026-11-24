@@ -1,0 +1,535 @@
+/* Fruitables redesign for WooCommerce single product pages. */
+.fruitables-product-detail {
+    --fruit-green: #81c408;
+    --fruit-green-dark: #416800;
+    --fruit-yellow: #ffb524;
+    --fruit-line: #e7ecd9;
+    --fruit-soft: #f6f8ef;
+    --fruit-text: #45595b;
+}
+
+.fruitables-product-detail .container,
+.fruitables-product-detail .container-fluid {
+    position: relative;
+}
+
+.fruitables-product-detail .woocommerce-notices-wrapper {
+    margin-bottom: 1.25rem;
+}
+
+.fruitables-product-detail .woocommerce-message {
+    border-top-color: var(--fruit-green);
+    border-radius: .75rem;
+    background: #f8fbf1;
+    color: var(--fruit-text);
+    padding: 1rem 1.25rem;
+}
+
+.fruitables-product-detail .woocommerce-message::before {
+    color: var(--fruit-green);
+}
+
+.fruitables-product-detail .woocommerce-message a.button {
+    float: right;
+    border: 1px solid var(--fruit-green-dark);
+    border-radius: 999px;
+    background: var(--fruit-green-dark);
+    color: #fff;
+    line-height: 1.3;
+}
+
+.fruitables-product-detail .fruitables-product-top,
+.fruitables-product-detail .fruitables-product-sidebar,
+.fruitables-product-detail .fruitables-detail-block,
+.fruitables-product-detail .fruitables-side-card,
+.fruitables-product-detail .fruitables-benefits-card,
+.fruitables-product-detail .fruitables-gallery-card,
+.fruitables-product-detail .fruitables-summary-card {
+    min-width: 0;
+}
+
+.fruitables-product-detail .fruitables-gallery-card,
+.fruitables-product-detail .fruitables-summary-card,
+.fruitables-product-detail .fruitables-benefits-card,
+.fruitables-product-detail .fruitables-side-card,
+.fruitables-product-detail .fruitables-detail-block {
+    background: #fff;
+    border: 1px solid var(--fruit-line);
+    border-radius: 1rem;
+    box-shadow: 0 8px 24px rgba(69, 89, 91, 0.06);
+}
+
+.fruitables-product-detail .fruitables-gallery-main {
+    position: relative;
+    overflow: hidden;
+    border-radius: 1rem;
+}
+
+.fruitables-product-detail .fruitables-gallery-main img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+}
+
+.fruitables-product-detail .fruitables-zoom-icon {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: rgba(255,255,255,.92);
+    color: var(--fruit-green-dark);
+    box-shadow: 0 6px 18px rgba(0,0,0,.12);
+}
+
+.fruitables-product-detail .fruitables-thumb-row {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: .75rem;
+    margin-top: 1rem;
+}
+
+.fruitables-product-detail .fruitables-thumb {
+    border: 2px solid transparent;
+    border-radius: .85rem;
+    padding: 0;
+    overflow: hidden;
+    background: #fff;
+}
+
+.fruitables-product-detail .fruitables-thumb.is-active {
+    border-color: var(--fruit-green);
+}
+
+.fruitables-product-detail .fruitables-thumb img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+}
+
+.fruitables-product-detail .fruitables-summary-card {
+    padding: 1.5rem;
+    height: 100%;
+}
+
+.fruitables-product-detail .fruitables-summary-card .product_title {
+    margin: 0 0 .5rem;
+    color: var(--fruit-text);
+    font-size: clamp(2rem, 4vw, 3rem);
+    line-height: 1.1;
+}
+
+.fruitables-product-detail .fruitables-rating-row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: .5rem;
+    margin-bottom: .875rem;
+}
+
+.fruitables-product-detail .star-rating {
+    color: var(--fruit-yellow);
+    margin: 0;
+}
+
+.fruitables-product-detail .fruitables-review-link {
+    color: #7a8b8d;
+    text-decoration: none;
+}
+
+.fruitables-product-detail .fruitables-review-link:hover,
+.fruitables-product-detail .fruitables-side-card a:hover,
+.fruitables-product-detail .fruitables-featured-title:hover {
+    color: var(--fruit-green-dark);
+}
+
+.fruitables-product-detail .fruitables-price,
+.fruitables-product-detail .summary p.price {
+    margin-bottom: 1rem;
+    color: var(--fruit-green-dark);
+    font-size: clamp(1.85rem, 3vw, 2.45rem);
+    font-weight: 800;
+    line-height: 1.1;
+}
+
+.fruitables-product-detail .fruitables-summary-text {
+    color: #6b7778;
+    font-size: 1rem;
+    line-height: 1.7;
+}
+
+.fruitables-product-detail .fruitables-summary-text p:last-child {
+    margin-bottom: 0;
+}
+
+.fruitables-product-detail .fruitables-category-line {
+    margin: 1rem 0 1.35rem;
+    color: var(--fruit-text);
+    font-weight: 600;
+}
+
+.fruitables-product-detail .fruitables-category-line span a,
+.fruitables-product-detail .product_meta a {
+    color: var(--fruit-green);
+    text-decoration: none;
+}
+
+.fruitables-product-detail .fruitables-cart-area form.cart:not(.variations_form),
+.fruitables-product-detail .fruitables-cart-area .woocommerce-variation-add-to-cart {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .9rem;
+    align-items: center;
+    margin: 0;
+}
+
+.fruitables-product-detail .fruitables-cart-area .quantity {
+    margin: 0 !important;
+}
+
+.fruitables-product-detail .fruitables-cart-area .quantity .qty {
+    width: 6rem;
+    min-height: 3.35rem;
+    padding: .55rem .8rem;
+    border: 1px solid #d6dfc2;
+    border-radius: 999px;
+    text-align: center;
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+.fruitables-product-detail .fruitables-cart-area .single_add_to_cart_button,
+.fruitables-product-detail #review_form #submit,
+.fruitables-product-detail .related ul.products li.product > a.button,
+.fruitables-product-detail .related ul.products li.product > a.added_to_cart {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 3.15rem;
+    padding: .75rem 1.5rem;
+    border-radius: 999px;
+    border: 1px solid var(--fruit-yellow);
+    background: #fff;
+    color: var(--fruit-green-dark);
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: none;
+}
+
+.fruitables-product-detail .fruitables-cart-area .single_add_to_cart_button:hover,
+.fruitables-product-detail #review_form #submit:hover,
+.fruitables-product-detail .related ul.products li.product > a.button:hover,
+.fruitables-product-detail .related ul.products li.product > a.added_to_cart:hover {
+    background: var(--fruit-green-dark);
+    border-color: var(--fruit-green-dark);
+    color: #fff;
+}
+
+.fruitables-product-detail .fruitables-benefits-card {
+    padding: 1rem;
+    background: #fbfcf6;
+}
+
+.fruitables-product-detail .fruitables-benefit-item {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    padding: 1rem 0;
+}
+
+.fruitables-product-detail .fruitables-benefit-item + .fruitables-benefit-item {
+    border-top: 1px solid var(--fruit-line);
+}
+
+.fruitables-product-detail .fruitables-benefit-icon {
+    flex: 0 0 56px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: #eef7db;
+    color: var(--fruit-green);
+    font-size: 1.35rem;
+}
+
+.fruitables-product-detail .fruitables-benefit-item h3 {
+    margin: 0 0 .2rem;
+    color: var(--fruit-text);
+    font-size: 1.25rem;
+}
+
+.fruitables-product-detail .fruitables-benefit-item p {
+    margin: 0;
+    color: #7a8587;
+    line-height: 1.55;
+}
+
+.fruitables-product-detail .fruitables-product-sidebar {
+    display: grid;
+    gap: 1.5rem;
+}
+
+.fruitables-product-detail .fruitables-side-card {
+    padding: 1.5rem;
+}
+
+.fruitables-product-detail .fruitables-side-card h2 {
+    color: var(--fruit-text);
+}
+
+.fruitables-product-detail .fruitables-side-links li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: .5rem 0;
+}
+
+.fruitables-product-detail .fruitables-side-card a,
+.fruitables-product-detail .fruitables-featured-title {
+    text-decoration: none;
+    color: var(--fruit-text);
+    font-weight: 600;
+}
+
+.fruitables-product-detail .fruitables-featured-item {
+    display: flex;
+    gap: .9rem;
+    align-items: center;
+}
+
+.fruitables-product-detail .fruitables-featured-item + .fruitables-featured-item {
+    margin-top: 1rem;
+}
+
+.fruitables-product-detail .fruitables-featured-thumb img {
+    display: block;
+    width: 78px;
+    height: 78px;
+    object-fit: cover;
+    border-radius: .8rem;
+}
+
+.fruitables-product-detail .fruitables-featured-price {
+    color: var(--fruit-green-dark);
+    font-weight: 700;
+}
+
+.fruitables-product-detail .fruitables-detail-promo img {
+    display: block;
+    width: 100%;
+    border-radius: 1rem;
+}
+
+.fruitables-product-detail .fruitables-detail-promo span {
+    position: absolute;
+    left: 1rem;
+    bottom: 1rem;
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.8rem;
+    padding: .5rem 1rem;
+    border-radius: 999px;
+    background: rgba(255,255,255,.95);
+    color: var(--fruit-green-dark);
+    font-weight: 700;
+}
+
+.fruitables-product-detail .fruitables-detail-block {
+    margin-top: 2rem;
+    padding: 1.5rem;
+}
+
+.fruitables-product-detail .woocommerce-tabs ul.tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .75rem;
+    margin: 0 0 1.25rem;
+    padding: 0;
+}
+
+.fruitables-product-detail .woocommerce-tabs ul.tabs::before {
+    border-bottom: 1px solid var(--fruit-line);
+}
+
+.fruitables-product-detail .woocommerce-tabs ul.tabs li {
+    margin: 0;
+    border: 1px solid var(--fruit-line);
+    border-radius: .8rem .8rem 0 0;
+    background: #fff;
+}
+
+.fruitables-product-detail .woocommerce-tabs ul.tabs li.active {
+    border-bottom-color: #fff;
+}
+
+.fruitables-product-detail .woocommerce-tabs ul.tabs li::before,
+.fruitables-product-detail .woocommerce-tabs ul.tabs li::after {
+    display: none;
+}
+
+.fruitables-product-detail .woocommerce-tabs ul.tabs li a {
+    padding: .9rem 1.2rem;
+    color: var(--fruit-text);
+    font-weight: 700;
+}
+
+.fruitables-product-detail .woocommerce-tabs .panel {
+    margin: 0;
+    color: #6f7b7d;
+    line-height: 1.8;
+}
+
+.fruitables-product-detail .woocommerce-Tabs-panel--reviews #review_form_wrapper {
+    margin-top: 1.25rem;
+}
+
+.fruitables-product-detail .comment-form-rating label,
+.fruitables-product-detail .comment-form-comment label {
+    display: block;
+    margin-bottom: .35rem;
+    font-weight: 600;
+}
+
+.fruitables-product-detail textarea,
+.fruitables-product-detail input[type="text"],
+.fruitables-product-detail input[type="email"] {
+    width: 100%;
+    border: 1px solid #d7dfc7;
+    border-radius: .75rem;
+    padding: .85rem 1rem;
+}
+
+.fruitables-product-detail .related > h2 {
+    margin: 0 0 1.25rem;
+    color: var(--fruit-text);
+    font-size: clamp(1.7rem, 2.5vw, 2.3rem);
+}
+
+.fruitables-product-detail .related ul.products[class] {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1.5rem;
+    margin: 0;
+}
+
+.fruitables-product-detail .related ul.products[class]::before,
+.fruitables-product-detail .related ul.products[class]::after {
+    display: none;
+}
+
+.fruitables-product-detail .related ul.products[class] > li.product {
+    position: relative;
+    float: none;
+    width: auto;
+    margin: 0;
+    padding: 0 0 1rem;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--fruit-yellow);
+    border-radius: .85rem;
+    overflow: hidden;
+    background: #fff;
+}
+
+.fruitables-product-detail .related ul.products[class] > li.product > a.woocommerce-loop-product__link {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    text-decoration: none;
+}
+
+.fruitables-product-detail .related ul.products[class] > li.product > a.woocommerce-loop-product__link img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    margin: 0 0 .85rem;
+}
+
+.fruitables-product-detail .related ul.products[class] > li.product .fruitables-card-category {
+    position: absolute;
+    top: .75rem;
+    left: .75rem;
+    z-index: 1;
+    display: inline-flex;
+    padding: .35rem .8rem;
+    border-radius: .7rem;
+    background: var(--fruit-yellow);
+    color: #fff;
+    font-size: .9rem;
+    font-weight: 700;
+}
+
+.fruitables-product-detail .related ul.products[class] > li.product .woocommerce-loop-product__title {
+    padding: 0 1rem;
+    margin: 0 0 .5rem;
+    color: var(--fruit-text);
+    font-size: 1.5rem;
+}
+
+.fruitables-product-detail .related ul.products[class] > li.product .price {
+    padding: 0 1rem;
+    margin: auto 0 0;
+    color: var(--fruit-green-dark);
+    font-size: 1.2rem;
+    font-weight: 800;
+}
+
+.fruitables-product-detail .related ul.products[class] > li.product .star-rating {
+    margin: 0 1rem .35rem;
+}
+
+.fruitables-product-detail .related ul.products[class] > li.product > a.button,
+.fruitables-product-detail .related ul.products[class] > li.product > a.added_to_cart {
+    margin: .75rem 1rem 0;
+    min-height: 2.8rem;
+}
+
+.fruitables-product-detail .related ul.products[class] > li.product > a.added_to_cart {
+    background: #eef7db;
+    border-color: #c1d59d;
+}
+
+@media (max-width: 1399.98px) {
+    .fruitables-product-detail .related ul.products[class] {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 1199.98px) {
+    .fruitables-product-detail .fruitables-product-top {
+        margin-bottom: 0;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .fruitables-product-detail .woocommerce-message a.button {
+        float: none;
+        display: inline-flex;
+        margin-bottom: .75rem;
+    }
+
+    .fruitables-product-detail .fruitables-thumb-row {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .fruitables-product-detail .related ul.products[class] {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 1rem;
+    }
+}
+
+@media (min-width: 992px) {
+    .admin-bar .fruitables-product-detail .page-header {
+        margin-top: 164px !important;
+    }
+}

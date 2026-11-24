@@ -1,0 +1,97 @@
+/* Preserve the original Fruitables footer typography and layout. */
+.footer .fruitables-footer-links a {
+    display: inline-block;
+    line-height: 35px;
+    color: rgba(255, 255, 255, .5);
+    text-decoration: none;
+    transition: .5s;
+}
+.footer .fruitables-footer-links a:hover,
+.footer .fruitables-footer-links .current-menu-item > a,
+.footer .fruitables-contact-link:hover { color: var(--bs-secondary) !important; }
+.footer .fruitables-contact-link {
+    color: rgba(255,255,255,.5);
+    text-decoration: none;
+}
+.footer .fruitables-newsletter .mailpoet_form,
+.footer .fruitables-newsletter .mc4wp-form form {
+    width: 100%;
+    position: relative;
+    margin: 0;
+}
+.footer .fruitables-newsletter .mailpoet_paragraph { margin-bottom: 0; }
+.footer .fruitables-newsletter input[type="email"] {
+    border: none;
+    border-radius: 999px;
+    padding: 1rem 1.5rem;
+    width: 100%;
+    background: white;
+}
+.footer .fruitables-newsletter input[type="submit"],
+.footer .fruitables-newsletter button[type="submit"] {
+    background: var(--bs-primary);
+    color: #fff;
+    border: none;
+    border-radius: 999px;
+    padding: 1rem 1.5rem;
+    cursor: pointer;
+}
+.footer .fruitables-newsletter input[type="submit"]:hover,
+.footer .fruitables-newsletter button[type="submit"]:hover {
+    background: var(--bs-secondary);
+    color: #000;
+}
+.fruitables-client-comment p:last-child { margin-bottom: 0; }
+@media (min-width: 576px) {
+    .footer .fruitables-newsletter .mc4wp-form form:has(input[type="email"]) {
+        display: flex;
+        align-items: flex-start;
+        gap: 0;
+    }
+    .footer .fruitables-newsletter .mc4wp-form form:has(input[type="email"]) input[type="email"] {
+        flex: 1;
+        min-width: 0;
+    }
+}
+
+/* New homepage newsletter and footer only. */
+body.home .ft-footer { background:#faf9f7; padding:0; margin:0; }
+body.home .ft-newsletter { display:grid; grid-template-columns:1fr minmax(0,43%); align-items:center; gap:24px; padding:19px 27px; border-radius:22px; background:linear-gradient(105deg,#e8edde,#edf0e5); margin-block:12px 22px; }
+body.home .ft-newsletter-intro { display:flex; gap:20px; align-items:center; }
+body.home .ft-newsletter-intro>i { color:#86a966; font-size:42px; line-height:1; transform:rotate(-12deg); }
+body.home .ft-newsletter h2 { font-size:clamp(19px,1.8vw,25px); }
+body.home .ft-newsletter p { font-size:13px; margin:5px 0 0; color:var(--ft-muted); line-height:1.4; }
+body.home .ft-newsletter .ft-newsletter-form { min-width:0; }
+body.home .ft-newsletter-preview { display:flex; align-items:center; padding:3px; border-radius:999px; background:#fff; gap:6px; }
+body.home .ft-newsletter input[type=email] { width:100%; min-width:0; border:0; padding:10px 12px; background:#fff; border-radius:999px; font-size:13px; color:var(--ft-ink); }
+body.home .ft-newsletter :is(input[type=submit],button) { border:0; border-radius:999px; padding:10px 18px; background:var(--ft-green); color:#fff; font-size:13px; font-weight:700; white-space:nowrap; }
+body.home .ft-newsletter button:disabled { opacity:.7; cursor:not-allowed; }
+body.home .ft-newsletter-note { display:block; font-size:11px; margin:5px 9px 0; color:var(--ft-muted); }
+body.home .ft-newsletter .mc4wp-form-fields { display:flex; align-items:center; gap:6px; flex-wrap:wrap; }
+body.home .ft-newsletter .mc4wp-form-fields>p { flex:1 1 auto; margin:0; }
+body.home .ft-newsletter .mailpoet_paragraph { margin:0 0 5px; }
+body.home .ft-newsletter :is(input[type=submit],button):not(:disabled):hover { background:var(--ft-deep); color:#fff; }
+body.home .ft-footer-main { background:#f5f4f0; padding:24px 0; }
+body.home .ft-footer-grid { display:grid; grid-template-columns:1.7fr 1fr 1fr 1.1fr 1.35fr; gap:24px; }
+body.home .ft-footer-grid h3 { font-size:15px; margin:3px 0 10px; letter-spacing:-.015em; }
+body.home .ft-footer-grid p,body.home .ft-footer-links { font-size:13px; line-height:1.45; color:#414640; margin:0 0 7px; overflow-wrap:anywhere; }
+body.home .ft-footer-brand .ft-brand { margin-bottom:9px; font-size:26px; }
+body.home .ft-footer-brand p { max-width:240px; }
+body.home .ft-footer-links { list-style:none; padding:0; }
+body.home .ft-footer-links li { margin:0 0 4px; }
+body.home .ft-footer-links a:hover,body.home .ft-footer-contact a:hover,body.home .ft-legal a:hover { color:var(--ft-green); text-decoration:underline; }
+body.home .ft-socials { display:flex; flex-wrap:wrap; gap:8px; margin-top:10px; }
+body.home .ft-socials a { display:grid; place-items:center; background:#719654; color:#fff; width:24px; height:24px; border-radius:50%; font-size:12px; }
+body.home .ft-socials a:hover { background:var(--ft-deep); }
+body.home .ft-footer-contact p { display:flex; align-items:flex-start; gap:8px; }
+body.home .ft-footer-contact i { color:var(--ft-green); font-size:17px; line-height:1.2; }
+body.home .ft-footer-contact img { max-width:100%; height:auto; }
+body.home .ft-copyright { background:#e9ecdf; font-size:12px; }
+body.home .ft-copyright>.ft-wrap { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; padding-block:10px; }
+body.home .ft-legal { display:flex; flex-wrap:wrap; gap:10px; }
+body.home .ft-legal a+a { padding-left:10px; border-left:1px solid #a6b29c; }
+@media(max-width:950px) { body.home .ft-footer-grid { grid-template-columns:repeat(3,minmax(0,1fr)); } body.home .ft-newsletter { grid-template-columns:1fr; gap:15px; } }
+@media(max-width:650px) { body.home .ft-footer-grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:19px; } body.home .ft-footer-brand { grid-column:1/-1; } body.home .ft-newsletter { padding:17px; border-radius:15px; } body.home .ft-newsletter-intro { gap:12px; } body.home .ft-newsletter-intro>i { font-size:30px; } body.home .ft-newsletter input[type=email] { font-size:12px; padding:9px; } body.home .ft-newsletter :is(input[type=submit],button) { padding:9px 12px; font-size:12px; } }
+
+body.home .ft-attribution { background:#e9ecdf; color:#535d50; font-size:10px; padding-bottom:8px; }
+body.home .ft-attribution a { text-decoration:underline; }
